@@ -3,15 +3,22 @@ import java.io.*;
 public class tile{
    private int val;
    private String letter;
+   boolean doubled,tripled,isTile;
 
    public tile(){
       letter = "";
       val = 0;
+      doubled = false;
+      tripled = false;
+      isTile = false;
    }
    
    public tile(String l){
       letter = l;
       val = calculateValue(letter);
+      isTile=true;
+      doubled=false;
+      tripled=false;
    }
    
    public static int calculateValue(String letter){
@@ -112,4 +119,27 @@ public class tile{
       return val;
    }
    
+   public boolean getDouble(){
+      return doubled;
+   }
+   public void doubleLetter(){
+      if(!this.getDouble()&&(!this.getTriple())){
+         val*=2;
+         doubled=true;
+      }
+   }
+   
+   public boolean getTriple(){
+      return tripled;
+   }
+   public void tripleLetter(){
+      if(!this.getDouble()&&(!this.getTriple())){
+         val*=3;
+         tripled=true;
+      }
+   } 
+   
+   public boolean isTile(){
+      return isTile;
+   }
 }
