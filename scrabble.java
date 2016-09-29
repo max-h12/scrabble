@@ -1,6 +1,6 @@
 public class scrabble{
 
-
+i love comp sci
 
 
 public SparseMatrix<Tile> board = new SparseMatrix(15,15);
