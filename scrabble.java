@@ -1,9 +1,11 @@
 import java.util.*;
 import java.io.*;
-import java.net.sf.javaml.clustering.mcl.SparseMatrix;
 
 public class scrabble{
-   private SparseMatrix board = new SparseMatrix(15,15);
+ArrayList<String>bag = new ArrayList<String>();
+
+   public static void createBag (ArrayList bag){
    
+   }   
    
 }
