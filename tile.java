@@ -3,7 +3,7 @@ import java.io.*;
 public class tile{
    private int val;
    private String letter;
-   boolean doubled,tripled,isTile,isAny;
+   boolean doubled,tripled,isTile,isAny,isPlaced;
 
    public tile(){
       letter = "";
@@ -12,6 +12,7 @@ public class tile{
       tripled = false;
       isTile = false;
       isAny = false;
+      isPlaced = false;
    }
    
    public tile(String l){
@@ -26,6 +27,8 @@ public class tile{
       isTile=true;
       doubled=false;
       tripled=false;
+      isPlaced = false;
+   
    }
    
    public static int calculateValue(String letter){
@@ -152,5 +155,13 @@ public class tile{
 
    public boolean isAny(){
       return isAny;
+   }
+   
+   public void setPlaced(){
+      isPlaced = true;
+   }
+   
+   public boolean isPlaced(){
+      return isPlaced;
    }
 }
