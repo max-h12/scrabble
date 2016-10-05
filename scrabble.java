@@ -1,12 +1,18 @@
-public class Scrabble
+import java.util.*;
+public class scrabble
 {
 
-public SparseMatrix<Tile> board = new SparseMatrix(15,15);
+private SparseMatrix<tile> board = new SparseMatrix(15,15);
+Scanner input = new Scanner(System.in);
+ArrayList<tile> wordBag = new ArrayList<tile>();
+ArrayList<tile> rack1 = new ArrayList<tile>();
+ArrayList<tile> rack2 = new ArrayList<tile>();
+int bagCount = 0, rack1count = 0, rack2count = 0;
 
-public Scrabble
+public scrabble()
 {
 
-Tile blanky = new Tile();
+tile blanky = new tile();
 for(int i = 0; i < 15; i++)
 {
    for(int j = 0; j <15; j++)
@@ -15,124 +21,144 @@ for(int i = 0; i < 15; i++)
    }
 }
 
+}
 
 
-public static void addTile(int r, int c, Tile t)
+/*System.out.println("Welcome to Scrabble with Buddies! Pick a number to choose your option.\n1)1-Player\n 2)2-Player");
+int gameType*/  
+
+public static void addtile(SparseMatrix<tile> board, int r, int c, tile t)
 {
    board.set(r, c, t);
 }
 
-ArrayList<Tile> wordBag = new ArrayList<Tile>();
-for(int counter = 0; count < 9; count++)
+
+public static void addWordBag(ArrayList<tile> wordBag, int bagCount)
 {
-   list.add(new Tile("A"));
+for(bagCount = 0; bagCount < 9; bagCount++)
+{
+   wordBag.add(new tile("A"));
 }
-for(int counter = 9; count < 11; count++)
+for(bagCount = 9; bagCount < 11; bagCount++)
 {
-   list.add(new Tile("B"));
+   wordBag.add(new tile("B"));
 }
-for(int counter = 11; count < 13; count++)
+for(bagCount = 11; bagCount < 13; bagCount++)
 {
-   list.add(new Tile("C"));
+   wordBag.add(new tile("C"));
 }
-for(int counter = 13; count < 18; count++)
+for(bagCount = 13; bagCount < 18; bagCount++)
 {
-   list.add(new Tile("D"));
+   wordBag.add(new tile("D"));
 }
-for(int counter = 18; count < 31; count++)
+for(bagCount = 18; bagCount < 31; bagCount++)
 {
-   list.add(new Tile("E"));
+   wordBag.add(new tile("E"));
 }
-for(int counter = 31; count < 33; count++)
+for(bagCount = 31; bagCount < 33; bagCount++)
 {
-   list.add(new Tile("F"));
+   wordBag.add(new tile("F"));
 }
-for(int counter = 33; count < 36; count++)
+for(bagCount = 33; bagCount < 36; bagCount++)
 {
-   list.add(new Tile("G"));
+   wordBag.add(new tile("G"));
 }
-for(int counter = 36; count < 40; count++)
+for(bagCount = 36; bagCount < 40; bagCount++)
 {
-   list.add(new Tile("H"));
+   wordBag.add(new tile("H"));
 }
-for(int counter = 40; count < 48; count++)
+for(bagCount = 40; bagCount < 48; bagCount++)
 {
-   list.add(new Tile("I"));
+   wordBag.add(new tile("I"));
 }
-for(int counter = 48; count < 49; count++)
+for(bagCount = 48; bagCount < 49; bagCount++)
 {
-   list.add(new Tile("J"));
+   wordBag.add(new tile("J"));
 }
-for(int counter = 49; count < 50; count++)
+for(bagCount = 49; bagCount < 50; bagCount++)
 {
-   list.add(new Tile("K"));
+   wordBag.add(new tile("K"));
 }
-for(int counter = 50; count < 54; count++)
+for(bagCount = 50; bagCount < 54; bagCount++)
 {
-   list.add(new Tile("L"));
+   wordBag.add(new tile("L"));
 }
-for(int counter = 54; count < 56; count++)
+for(bagCount = 54; bagCount < 56; bagCount++)
 {
-   list.add(new Tile("M"));
+   wordBag.add(new tile("M"));
 }
-for(int counter = 56; count < 61; count++)
+for(bagCount = 56; bagCount < 61; bagCount++)
 {
-   list.add(new Tile("N"));
+   wordBag.add(new tile("N"));
 }
-for(int counter = 61; count < 69; count++)
+for(bagCount = 61; bagCount < 69; bagCount++)
 {
-   list.add(new Tile("O"));
+   wordBag.add(new tile("O"));
 }
-for(int counter = 69; count < 71; count++)
+for(bagCount = 69; bagCount < 71; bagCount++)
 {
-   list.add(new Tile("P"));
+   wordBag.add(new tile("P"));
 }
-for(int counter = 71; count < 72; count++)
+for(bagCount = 71; bagCount < 72; bagCount++)
 {
-   list.add(new Tile("Q"));
+   wordBag.add(new tile("Q"));
 }
-for(int counter = 72; count < 78; count++)
+for(bagCount = 72; bagCount < 78; bagCount++)
 {
-   list.add(new Tile("R"));
+   wordBag.add(new tile("R"));
 }
-for(int counter = 78; count < 83; count++)
+for(bagCount = 78; bagCount < 83; bagCount++)
 {
-   list.add(new Tile("S"));
+   wordBag.add(new tile("S"));
 }
-for(int counter = 83; count < 90; count++)
+for(bagCount = 83; bagCount < 90; bagCount++)
 {
-   list.add(new Tile("T"));
+   wordBag.add(new tile("T"));
 }
-for(int counter = 90; count < 94; count++)
+for(bagCount = 90; bagCount < 94; bagCount++)
 {
-   list.add(new Tile("U"));
+   wordBag.add(new tile("U"));
 }
-for(int counter = 94; count < 96; count++)
+for(bagCount = 94; bagCount < 96; bagCount++)
 {
-   list.add(new Tile("V"));
+   wordBag.add(new tile("V"));
 }
-for(int counter = 96; count < 98; count++)
+for(bagCount = 96; bagCount < 98; bagCount++)
 {
-   list.add(new Tile("W"));
+   wordBag.add(new tile("W"));
 }
-for(int counter = 98; count < 99; count++)
+for(bagCount = 98; bagCount < 99; bagCount++)
 {
-   list.add(new Tile("X"));
+   wordBag.add(new tile("X"));
 }
-for(int counter = 99; count < 101; count++)
+for(bagCount = 99; bagCount < 101; bagCount++)
 {
-   list.add(new Tile("Y"));
+   wordBag.add(new tile("Y"));
 }
-for(int counter = 101; count < 102; count++)
+for(bagCount = 101; bagCount < 102; bagCount++)
 {
-   list.add(new Tile("Z"));
+   wordBag.add(new tile("Z"));
 }
-for(int counter = 102; count < 104; count++)
+for(bagCount = 102; bagCount < 104; bagCount++)
 {
-   list.add(new Tile("BL"));
+   wordBag.add(new tile("BL"));
+}
 }
 
-public static void printBoard()
+public static void rackFillStart(ArrayList<tile> wordBag, ArrayList<tile> rack1, ArrayList<tile> rack2, int bagCount)
+{
+   for(int i = 0; i < 7; i++)
+   {
+      int random1 = (int)(Math.random()* bagCount);
+      bagCount--;
+      int random2 = (int)(Math.random()* bagCount);
+      bagCount--;
+      rack1.add(wordBag.remove(random1));
+      rack2.add(wordBag.remove(random2));
+   }
+}
+
+public static void printBoard(SparseMatrix<tile> board)
 {
    System.out.print("_______________________________________________________");
    for(int r = 0; r < 15; r++)
@@ -143,6 +169,5 @@ public static void printBoard()
          System.out.print(board.get(r, c).getLetter());
       }
    }
-}
 }
 }
