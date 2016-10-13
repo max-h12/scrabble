@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 public class scrabble
 {
@@ -23,7 +24,11 @@ public class scrabble
    
    }
 
-
+   public static String[] createDictionary() throws IOException{
+      String[]Dictionary = new String[getFileSize("dictionary.txt")];
+      Dictionary = readFile("dictionary.txt");
+      return Dictionary;
+   }
 /*System.out.println("Welcome to Scrabble with Buddies! Pick a number to choose your option.\n1)1-Player\n 2)2-Player");
 int gameType*/  
 
@@ -146,7 +151,6 @@ int gameType*/
    }
 
 
-
    public static void rackFillStart(ArrayList<tile> wordBag, ArrayList<tile> rack1, ArrayList<tile> rack2, int bagCount)
    {
       for(int i = 0; i < 7; i++)
@@ -159,20 +163,27 @@ int gameType*/
          rack2.add(wordBag.remove(random2));
       }
    }
-   
-   public static int pointValue(ArrayList<tile> word){
-     
-     
-     
-     
-     
-      int value =0;
-      for(int i=0;i<word.size();i++){
-         value+=word.get(i).getVal();
+  
+  
+   public static String getWord (ArrayList<tile>word){
+      String temp = "";
+      for(int i =word.size()-1;i<=0;i--){
+         temp +=word.get(i);
       }
-      return value;
+      return temp;
    }
-
+   
+   public static boolean isWord(String word, String[]Dictionary){
+      boolean temp = false;
+      for(int i=0;i<Dictionary.length;i++){
+         if(word.equals(Dictionary[i])){
+            temp = true;
+         }
+      }
+      return temp;
+   }
+  
+  
    public static void printBoard(SparseMatrix<tile> board)
    {
       System.out.print("_______________________________________________________");

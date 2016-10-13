@@ -162,6 +162,6 @@ public class tile{
    }
    
    public boolean isPlaced(){
-      return isPlaced;
+      return isPlaced; 
    }
 }
