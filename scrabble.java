@@ -8,11 +8,12 @@ public class scrabble
    ArrayList<tile> wordBag = new ArrayList<tile>();
    ArrayList<tile> rack1 = new ArrayList<tile>();
    ArrayList<tile> rack2 = new ArrayList<tile>();
+   ArrayList<tile> tempWord = new ArrayList<tile>();
    int bagCount = 0, rack1count = 0, rack2count = 0;
-
+   
+   
    public scrabble()
    {
-   
       tile blanky = new tile();
       for(int i = 0; i < 15; i++)
       {
@@ -21,7 +22,6 @@ public class scrabble
             board.add(i, j, blanky);
          }
       }
-   
    }
 
    public static String[] createDictionary() throws IOException{
@@ -29,15 +29,14 @@ public class scrabble
       Dictionary = readFile("dictionary.txt");
       return Dictionary;
    }
-/*System.out.println("Welcome to Scrabble with Buddies! Pick a number to choose your option.\n1)1-Player\n 2)2-Player");
-int gameType*/  
+  
 
    public static void addtile(SparseMatrix<tile> board, int r, int c, tile t)
    {
       board.set(r, c, t);
    }
 
-
+//fills the "bag" with tiles
    public static void addWordBag(ArrayList<tile> wordBag, int bagCount)
    {
       for(bagCount = 0; bagCount < 9; bagCount++)
@@ -150,7 +149,7 @@ int gameType*/
       }
    }
 
-
+//distributes tiles to each players rack
    public static void rackFillStart(ArrayList<tile> wordBag, ArrayList<tile> rack1, ArrayList<tile> rack2, int bagCount)
    {
       for(int i = 0; i < 7; i++)
@@ -164,7 +163,7 @@ int gameType*/
       }
    }
   
-  
+  //creates a string word from an arraylist of tiles
    public static String getWord (ArrayList<tile>word){
       String temp = "";
       for(int i =word.size()-1;i<=0;i--){
@@ -173,6 +172,7 @@ int gameType*/
       return temp;
    }
    
+   //checks to see if an inputted string is a word in the dictionary
    public static boolean isWord(String word, String[]Dictionary){
       boolean temp = false;
       for(int i=0;i<Dictionary.length;i++){
@@ -183,7 +183,7 @@ int gameType*/
       return temp;
    }
   
-  
+  //prints the board
    public static void printBoard(SparseMatrix<tile> board)
    {
       System.out.print("_______________________________________________________");
@@ -197,6 +197,7 @@ int gameType*/
       }
    }
    
+   //returns file size
    public static int getFileSize(String fileName)throws IOException
    {
       Scanner input = new Scanner(new FileReader(fileName));
@@ -237,5 +238,98 @@ int gameType*/
       for(int i = 0; i < array.length; i++) 
          System.out.println(array[i]);
    }
+   
+//creates a board of 0s and 1s for tiles and non tiles
+   public static int[][] createIntBoard (SparseMatrix<tile> board){
+      int[][]intboard = new int[15][15];         
+      for(int r=0;r<15;r++){
+         for(int c=0;c<15;c++){
+            if(board.get(r, c).getLetter().equals("")||board.get(r,c)==null)
+               intboard[r][c] = 0;
+            else
+               intboard[r][c] = 1;
+         }
+      }
+      return intboard;
+   }
 
+//checks to see if tiles are all adjacent, no floating tiles
+   public static boolean checkBoard(int[][]intboard){
+      boolean valid = true;
+      for(int r=0;r<15;r++){
+         for(int c=0;c<15;c++){
+            boolean tilevalid = true;
+            if(intboard[r][c] == 1) //if theres a tile
+            {
+               boolean down = false; //assume there isnt anything touching it currently
+               boolean up = false;
+               boolean right = false;
+               boolean left = false;
+               
+               tilevalid =false;//is this tile valid?
+               if(r<14){ //check down (making sure we can)
+                  if(intboard[r+1][c] == 1)
+                     down = true;
+               }
+               if(r>0){ //check up (making sure we can)
+                  if(intboard[r-1][c] ==1)
+                     up = true;
+               }
+               if(c<14){ //check right (making sure we can)
+                  if(intboard[r][c+1]==1)
+                     right = true;
+               }
+               if(c>0){ //check left (making sure we can)
+                  if(intboard[r][c-1]==1)
+                     left = true;
+               }
+               if(down||up||right||left)
+                  tilevalid = true;
+            }
+            if(!tilevalid)
+               return false;
+         }
+      }
+      return true;
+   }
+   
+ 
+   public static int checkWordHorizontal(int r, int c, int[][] intboard)
+   {
+      int count = 1;
+      if(r != 15 && intboard[r+1][c] == 1)
+      {
+         count += checkWordHorizontal(r+1, c, intboard);
+      }
+      return count;
+   }
+   public static ArrayList<tile> formWordHorizontal(int count, int r, int c, SparseMatrix<tile> board)
+   {
+      ArrayList<tile> temp = new ArrayList<tile>();
+      for(int i = 0; i < count; i++)
+      {
+         temp.add(board.get(r, c)); 
+         c++;
+      }
+      return temp;
+   }
+   public static int checkWordVertical(int r, int c, int[][] intboard)
+   {
+      int count = 1;
+      if(c != 15 && intboard[r][c+1] == 1)
+      {
+         count += checkWordVertical(r, c+1, intboard);
+      }
+      return count;
+   }
+   public static ArrayList<tile> formWordVertical(int count, int r, int c, SparseMatrix<tile> board)
+   {
+      ArrayList<tile> temp = new ArrayList<tile>();
+      for(int i = 0; i < count; i++)
+      {
+         temp.add(board.get(r, c)); 
+         r++;
+      }
+      return temp;
+   }
 }
