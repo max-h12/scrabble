@@ -9,9 +9,47 @@ public class scrabble
    ArrayList<tile> rack1 = new ArrayList<tile>();
    ArrayList<tile> rack2 = new ArrayList<tile>();
    ArrayList<tile> tempWord = new ArrayList<tile>();
+   ArrayList<Coordinate> doubleLetter = new ArrayList<Coordinate>();
+   ArrayList<Coordinate> tripleLetter = new ArrayList<Coordinate>();
+   ArrayList<Coordinate> doubleWord = new ArrayList<Coordinate>();
+   ArrayList<Coordinate> tripleWord = new ArrayList<Coordinate>();
    int bagCount = 0, rack1count = 0, rack2count = 0;
    
+   public static void main(String[]arg){
+      Scanner input = new Scanner(System.in);
+      System.out.println("WELCOME TO SCRABBLE");
+      System.out.println("- Max Herz & LP Pham");
+      int choice;
+      System.out.println("Choose a game mode");
+      System.out.println("1)Singleplayer");
+      System.out.println("2)2 Player");
+      choice = input.nextInt();
+      while(choice<1||choice>2){
+         System.out.println("Invalid Selection! Try again");
+         System.out.println("Choose a game mode");
+         System.out.println("1)Singleplayer");
+         System.out.println("2)2 Player");
+         choice = input.nextInt();
+      }
+      doubleLetter.add(new Coordinate(1, 2));doubleLetter.add(new Coordinate(1, 12));doubleLetter.add(new Coordinate(2, 1));doubleLetter.add(new Coordinate(2, 4));doubleLetter.add(new Coordinate(2, 10));doubleLetter.add(new Coordinate(2, 13));doubleLetter.add(new Coordinate(4, 2))doubleLetter.add(new Coordinate(4, 6));doubleLetter.add(new Coordinate(4, 8));doubleLetter.add(new Coordinate(4, 12));doubleLetter.add(new Coordinate(6, 4));doubleLetter.add(new Coordinate(6, 10));doubleLetter.add(new Coordinate(8, 4));doubleLetter.add(new Coordinate(8, 10));doubleLetter.add(new Coordinate(10, 2));doubleLetter.add(new Coordinate(10, 6));doubleLetter.add(new Coordinate(10, 8));doubleLetter.add(new Coordinate(10, 12));doubleLetter.add(new Coordinate(12, 1));doubleLetter.add(new Coordinate(12, 4));doubleLetter.add(new Coordinate(12, 10));doubleLetter.add(new Coordinate(12, 13));doubleLetter.add(new Coordinate(13, 2));doubleLetter.add(new Coordinate(13, 12)); 
+         tripleLetter.add(new Coordinate(0, 6));tripleLetter.add(new Coordinate(0, 8));tripleLetter.add(new Coordinate(3, 3));tripleLetter.add(new Coordinate(3, 11));tripleLetter.add(new Coordinate(5, 5));tripleLetter.add(new Coordinate(5, 9));tripleLetter.add(new Coordinate(6, 0));tripleLetter.add(new Coordinate(6, 14));tripleLetter.add(new Coordinate(8, 0));tripleLetter.add(new Coordinate(8, 14));tripleLetter.add(new Coordinate(9, 5));tripleLetter.add(new Coordinate(9, 9));tripleLetter.add(new Coordinate(11, 3));tripleLetter.add(new Coordinate(11, 11));tripleLetter.add(new Coordinate(3, 3));tripleLetter.add(new Coordinate(3, 11));tripleLetter.add(new Coordinate(14, 6));tripleLetter.add(new Coordinate(14, 8));
+         doubleWord.add(new Coordinate(1, 5));doubleWord.add(new Coordinate(1, 9));doubleWord.add(new Coordinate(3, 7));doubleWord.add(new Coordinate(5, 1));doubleWord.add(new Coordinate(5, 13));doubleWord.add(new Coordinate(7, 3));doubleWord.add(new Coordinate(7, 11));doubleWord.add(new Coordinate(9, 1));doubleWord.add(new Coordinate(9, 13));doubleWord.add(new Coordinate(11, 7));doubleWord.add(new Coordinate(13, 5));doubleWord.add(new Coordinate(13, 9));
+         tripleWord.add(new Coordinate(0, 3));tripleWord.add(new Coordinate(0, 11));tripleWord.add(new Coordinate(3, 0));tripleWord.add(new Coordinate(3, 14));tripleWord.add(new Coordinate(11, 0));tripleWord.add(new Coordinate(11, 14));tripleWord.add(new Coordinate(14, 3));tripleWord.add(new Coordinate(14, 11));
+
+    
+    
+      if(choice==1){
+         System.out.println("In progress");
+      
+      
+      //play singleplayer
+      }
+      else
+      //play two player
+         System.out.println("In progress");
+      
    
+   }
    public scrabble()
    {
       tile blanky = new tile();
@@ -292,8 +330,7 @@ public class scrabble
       }
       return true;
    }
-   
- 
+
    public static int checkWordHorizontal(int r, int c, int[][] intboard)
    {
       int count = 1;
@@ -303,6 +340,7 @@ public class scrabble
       }
       return count;
    }
+ 
    public static ArrayList<tile> formWordHorizontal(int count, int r, int c, SparseMatrix<tile> board)
    {
       ArrayList<tile> temp = new ArrayList<tile>();
@@ -313,6 +351,7 @@ public class scrabble
       }
       return temp;
    }
+ 
    public static int checkWordVertical(int r, int c, int[][] intboard)
    {
       int count = 1;
@@ -322,6 +361,7 @@ public class scrabble
       }
       return count;
    }
+ 
    public static ArrayList<tile> formWordVertical(int count, int r, int c, SparseMatrix<tile> board)
    {
       ArrayList<tile> temp = new ArrayList<tile>();
