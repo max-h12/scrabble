@@ -21,12 +21,12 @@ public class Coordinate
    }
    public int getY()
    
-  {
+   {
       return yCor;
-  }
-  public void setY(int y)
-  {
-      yCor = y'
-  }
+   }
+   public void setY(int y)
+   {
+      yCor = y;
+   }
    
 }
