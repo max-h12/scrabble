@@ -1,7 +1,21 @@
+import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.io.*;
 import java.util.*;
-public class scrabble
+public class scrabble implements MouseListener, MouseMotionListener
+
 {
+
+     
+
 
    private SparseMatrix<tile> board = new SparseMatrix(15,15);
    Scanner input = new Scanner(System.in);
@@ -17,9 +31,16 @@ public class scrabble
    
    public static void main(String[]arg){
       Scanner input = new Scanner(System.in);
-      System.out.println("WELCOME TO SCRABBLE");
-      System.out.println("- Max Herz & LP Pham");
+      //JFrame frame = new JFrame("Scr4b3L"); frame.setSize(516, 538); frame.setVisible(true);
+      System.out.println("WELCOME TO SCRABEL");
+      System.out.println("JOE KORN Max Herz & LP Pham");
       int choice;
+      
+      addMouseListener(this);
+      addMouseMotionListener(this);
+      mouseX = 0;
+      mouseY = 0;
+      
       System.out.println("Choose a game mode");
       System.out.println("1)Singleplayer");
       System.out.println("2)2 Player");
@@ -31,16 +52,44 @@ public class scrabble
          System.out.println("2)2 Player");
          choice = input.nextInt();
       }
-      doubleLetter.add(new Coordinate(1, 2));doubleLetter.add(new Coordinate(1, 12));doubleLetter.add(new Coordinate(2, 1));doubleLetter.add(new Coordinate(2, 4));doubleLetter.add(new Coordinate(2, 10));doubleLetter.add(new Coordinate(2, 13));doubleLetter.add(new Coordinate(4, 2));doubleLetter.add(new Coordinate(4, 6));doubleLetter.add(new Coordinate(4, 8));doubleLetter.add(new Coordinate(4, 12));doubleLetter.add(new Coordinate(6, 4));doubleLetter.add(new Coordinate(6, 10));doubleLetter.add(new Coordinate(8, 4));doubleLetter.add(new Coordinate(8, 10));doubleLetter.add(new Coordinate(10, 2));doubleLetter.add(new Coordinate(10, 6));doubleLetter.add(new Coordinate(10, 8));doubleLetter.add(new Coordinate(10, 12));doubleLetter.add(new Coordinate(12, 1));doubleLetter.add(new Coordinate(12, 4));doubleLetter.add(new Coordinate(12, 10));doubleLetter.add(new Coordinate(12, 13));doubleLetter.add(new Coordinate(13, 2));doubleLetter.add(new Coordinate(13, 12)); 
-      tripleLetter.add(new Coordinate(0, 6));tripleLetter.add(new Coordinate(0, 8));tripleLetter.add(new Coordinate(3, 3));tripleLetter.add(new Coordinate(3, 11));tripleLetter.add(new Coordinate(5, 5));tripleLetter.add(new Coordinate(5, 9));tripleLetter.add(new Coordinate(6, 0));tripleLetter.add(new Coordinate(6, 14));tripleLetter.add(new Coordinate(8, 0));tripleLetter.add(new Coordinate(8, 14));tripleLetter.add(new Coordinate(9, 5));tripleLetter.add(new Coordinate(9, 9));tripleLetter.add(new Coordinate(11, 3));tripleLetter.add(new Coordinate(11, 11));tripleLetter.add(new Coordinate(3, 3));tripleLetter.add(new Coordinate(3, 11));tripleLetter.add(new Coordinate(14, 6));tripleLetter.add(new Coordinate(14, 8));
-      doubleWord.add(new Coordinate(1, 5));doubleWord.add(new Coordinate(1, 9));doubleWord.add(new Coordinate(3, 7));doubleWord.add(new Coordinate(5, 1));doubleWord.add(new Coordinate(5, 13));doubleWord.add(new Coordinate(7, 3));doubleWord.add(new Coordinate(7, 11));doubleWord.add(new Coordinate(9, 1));doubleWord.add(new Coordinate(9, 13));doubleWord.add(new Coordinate(11, 7));doubleWord.add(new Coordinate(13, 5));doubleWord.add(new Coordinate(13, 9));
-      tripleWord.add(new Coordinate(0, 3));tripleWord.add(new Coordinate(0, 11));tripleWord.add(new Coordinate(3, 0));tripleWord.add(new Coordinate(3, 14));tripleWord.add(new Coordinate(11, 0));tripleWord.add(new Coordinate(11, 14));tripleWord.add(new Coordinate(14, 3));tripleWord.add(new Coordinate(14, 11));
-   
+      /* doubleLetter.add(new Coordinate(1, 2));doubleLetter.add(new Coordinate(1, 12));doubleLetter.add(new Coordinate(2, 1));doubleLetter.add(new Coordinate(2, 4));doubleLetter.add(new Coordinate(2, 10));doubleLetter.add(new Coordinate(2, 13));doubleLetter.add(new Coordinate(4, 2));doubleLetter.add(new Coordinate(4, 6));doubleLetter.add(new Coordinate(4, 8));doubleLetter.add(new Coordinate(4, 12));doubleLetter.add(new Coordinate(6, 4));doubleLetter.add(new Coordinate(6, 10));doubleLetter.add(new Coordinate(8, 4));doubleLetter.add(new Coordinate(8, 10));doubleLetter.add(new Coordinate(10, 2));doubleLetter.add(new Coordinate(10, 6));doubleLetter.add(new Coordinate(10, 8));doubleLetter.add(new Coordinate(10, 12));doubleLetter.add(new Coordinate(12, 1));doubleLetter.add(new Coordinate(12, 4));doubleLetter.add(new Coordinate(12, 10));doubleLetter.add(new Coordinate(12, 13));doubleLetter.add(new Coordinate(13, 2));doubleLetter.add(new Coordinate(13, 12)); 
+       tripleLetter.add(new Coordinate(0, 6));tripleLetter.add(new Coordinate(0, 8));tripleLetter.add(new Coordinate(3, 3));tripleLetter.add(new Coordinate(3, 11));tripleLetter.add(new Coordinate(5, 5));tripleLetter.add(new Coordinate(5, 9));tripleLetter.add(new Coordinate(6, 0));tripleLetter.add(new Coordinate(6, 14));tripleLetter.add(new Coordinate(8, 0));tripleLetter.add(new Coordinate(8, 14));tripleLetter.add(new Coordinate(9, 5));tripleLetter.add(new Coordinate(9, 9));tripleLetter.add(new Coordinate(11, 3));tripleLetter.add(new Coordinate(11, 11));tripleLetter.add(new Coordinate(3, 3));tripleLetter.add(new Coordinate(3, 11));tripleLetter.add(new Coordinate(14, 6));tripleLetter.add(new Coordinate(14, 8));
+       doubleWord.add(new Coordinate(1, 5));doubleWord.add(new Coordinate(1, 9));doubleWord.add(new Coordinate(3, 7));doubleWord.add(new Coordinate(5, 1));doubleWord.add(new Coordinate(5, 13));doubleWord.add(new Coordinate(7, 3));doubleWord.add(new Coordinate(7, 11));doubleWord.add(new Coordinate(9, 1));doubleWord.add(new Coordinate(9, 13));doubleWord.add(new Coordinate(11, 7));doubleWord.add(new Coordinate(13, 5));doubleWord.add(new Coordinate(13, 9));
+       tripleWord.add(new Coordinate(0, 3));tripleWord.add(new Coordinate(0, 11));tripleWord.add(new Coordinate(3, 0));tripleWord.add(new Coordinate(3, 14));tripleWord.add(new Coordinate(11, 0));tripleWord.add(new Coordinate(11, 14));tripleWord.add(new Coordinate(14, 3));tripleWord.add(new Coordinate(14, 11)); */
     
     
       if(choice==1){
-         System.out.println("In progress");
-      //play singleplayer
+      //create a blank board
+         setLayout(new BorderLayout());
+         JPanel center = new JPanel();
+         center.setLayout(new GridLayout(15,15));//sets up grid to add all the buttons
+         add(center, BorderLayout.CENTER);
+         
+         ArrayList<tile>wordbag = new ArrayList<tile>();
+         int bagcount = 0;
+         ArrayList<tile>rack1 = new ArrayList<tile>();
+         ArrayList<tile>rack2 = new ArrayList<tile>();
+         SparseMatrix<tile> board = new SparseMatrix(15,15);
+      
+         
+         tile blanky = new tile();
+         for(int i = 0; i < 15; i++)
+         {
+            for(int j = 0; j <15; j++)
+            {
+               board.add(i, j, blanky);
+            }
+         }
+         //create the int board initially
+         int[][]intboard = createIntBoard(board);
+         int bagCount = 0;
+         addWordBag(wordbag, bagCount);
+         rackFillStart(wordbag,rack1,rack2,bagcount);
+         
+         while(bagcount>0){
+            System.out.println("Player 1, place a word");
+         }
+         
       }
       else
       //play two player
@@ -48,17 +97,7 @@ public class scrabble
       
    
    }
-   public scrabble()
-   {
-      tile blanky = new tile();
-      for(int i = 0; i < 15; i++)
-      {
-         for(int j = 0; j <15; j++)
-         {
-            board.add(i, j, blanky);
-         }
-      }
-   }
+
 
    public static String[] createDictionary() throws IOException{
       String[]Dictionary = new String[getFileSize("dictionary.txt")];
@@ -188,16 +227,56 @@ public class scrabble
 //distributes tiles to each players rack
    public static void rackFillStart(ArrayList<tile> wordBag, ArrayList<tile> rack1, ArrayList<tile> rack2, int bagCount)
    {
-      for(int i = 0; i < 7; i++)
+      if(bagCount > 14)
       {
-         int random1 = (int)(Math.random()* bagCount);
-         bagCount--;
-         int random2 = (int)(Math.random()* bagCount);
-         bagCount--;
-         rack1.add(wordBag.remove(random1));
-         rack2.add(wordBag.remove(random2));
+         for(int i = 0; i < 7; i++)
+         {
+            int random1 = (int)(Math.random()* bagCount);
+            bagCount--;
+            int random2 = (int)(Math.random()* bagCount);
+            bagCount--;
+            rack1.add(wordBag.remove(random1));
+            rack2.add(wordBag.remove(random2));
+         }
       }
    }
+   
+   public void showBoard(Graphics g)	
+   {
+      int x =0, y=0;		//upper left corner location of where image will be drawn
+      for(int r=0;r<board.length;r++)
+      {
+         x = 0;						//reset the row distance
+         for(int c=0;c<board[0].length;c++)
+         {
+            if(board[r][c]==0)
+               g.drawImage(blank.getImage(), x, y, SIZE, SIZE, null);  //scaled image
+            else
+               if(board[r][c]==1)
+                  g.drawImage(white.getImage(), x, y, SIZE, SIZE, null);  //scaled image
+               else // if(board[r][c]==2)
+                  g.drawImage(black.getImage(), x, y, SIZE, SIZE, null);  //scaled image
+           
+            if(r==playerR && c==playerC)	//draw the crosshair on the board after the cell has been drawn
+            {
+               if(selected == -1)
+                  g.drawImage(crossHair.getImage(), x, y, SIZE, SIZE, null);  //scaled image
+               else
+               {
+                  if(selected==1)
+                     g.drawImage(white.getImage(), x, y, SIZE, SIZE, null);  //scaled image
+                  else // if(board[r][c]==2)
+                     g.drawImage(black.getImage(), x, y, SIZE, SIZE, null);  //scaled image
+               
+               }
+            }
+            x+=SIZE;
+         }
+         y+=SIZE;
+      }
+   }
+
+
   
   //creates a string word from an arraylist of tiles
    public static String getWord (ArrayList<tile>word){
@@ -361,6 +440,8 @@ public class scrabble
    }
  
    public static ArrayList<tile> formWordVertical(int count, int r, int c, SparseMatrix<tile> board)
+   
+   
    {
       ArrayList<tile> temp = new ArrayList<tile>();
       for(int i = 0; i < count; i++)
@@ -370,4 +451,95 @@ public class scrabble
       }
       return temp;
    }
+   private class Listener implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)	//this is called for each timer iteration - make the enemy move randomly
+      {
+         repaint();
+      }
+   }
+
+   public void mouseClicked( MouseEvent e )
+   {
+      int button = e.getButton();
+      if(button == MouseEvent.BUTTON1)    //toggle value
+      {
+         int mouseR = (mouseY/SIZE);
+         int mouseC = (mouseX/SIZE);
+      
+         if(mouseR >=0 && mouseC >= 0 && mouseR < board.length && mouseC < board[0].length)
+         {
+            playerR = mouseR;
+            playerC = mouseC;
+            if(button == MouseEvent.BUTTON1)	//button 1 toggles the space
+               board[playerR][playerC] = (board[playerR][playerC]+1) % 3;
+            else										//button 2 clears the space
+               board[playerR][playerC] = 0;
+         }
+         else
+         {
+            playerR = board.length/2;
+            playerC = board[0].length/2;
+         
+         }
+      } 
+      if(button == MouseEvent.BUTTON3)    //select and drop
+      {
+         int mouseR = (mouseY/SIZE);
+         int mouseC = (mouseX/SIZE);
+         
+         if(selected == -1 && board[mouseR][mouseC] > 0)             //nothing selected yet
+         {
+            selected =  board[mouseR][mouseC];                       //select the chip at that locatino
+            board[mouseR][mouseC] = 0;                               //remove that chip from the board
+         }
+         else if(selected > 0 &&  board[mouseR][mouseC] == 0)        //we have something selected and are on an empty board spot
+         {
+            board[mouseR][mouseC] = selected;                        //drop that chip on the board
+            selected = -1;
+         }   
+      } 
+   
+      repaint();
+   }
+
+   public void mousePressed( MouseEvent e )
+   {}
+
+   public void mouseReleased( MouseEvent e )
+   {}
+
+   public void mouseEntered( MouseEvent e )
+   {}
+
+   public void mouseMoved( MouseEvent e)
+   {
+      mouseX = e.getX();
+      mouseY = e.getY();
+      
+      int mouseR = (mouseY/SIZE);
+      int mouseC = (mouseX/SIZE);
+     // System.out.println(mouseR+":"+mouseC);
+      if(mouseR >=0 && mouseC >= 0 && mouseR < board.length && mouseC < board[0].length)
+      {
+         playerR = mouseR;
+         playerC = mouseC;
+      }
+      else
+      {
+         playerR = board.length/2;
+         playerC = board[0].length/2;
+      
+      }
+      repaint();			//refresh the screen
+   }
+
+   public void mouseDragged( MouseEvent e)
+   {}
+
+   public void mouseExited( MouseEvent e )
+   {}
+
+
+
 }
