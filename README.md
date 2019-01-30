@@ -1,2 +1,2 @@
-# scrabbleaiganggang
+# scrabble
 Scrabble with AI
